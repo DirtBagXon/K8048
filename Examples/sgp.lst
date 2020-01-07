@@ -1,0 +1,324 @@
+gpasm-1.4.0 #1107 (May  9 2015) /home/sgp/K80   5-11-2019  13:03:06         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;**************************************************************************
+                      00002 ;*           VELLEMAN   High-Q KIT  K8048/VM111 SAMPLE SOFTWARE           *
+                      00003 ;**************************************************************************
+                      00004 ;*           DEMO1: Simple Running light for testing LD1...LD5            *
+                      00005 ;*           DEMO1: Program for testing K8048/VM111 with PIC16F627!       *
+                      00006 ;**************************************************************************
+                      00007 ;*          (C) VELLEMAN Components,2003  All rights reserved             *
+                      00008 ;**************************************************************************
+                      00009 ;*          Hardw. Rev: P8048'1          Softw. Rev:  1.20                *
+                      00010 ;*          OSC.......: XT 4MHz Max.     POWER.....:  12V DC              *
+                      00011 ;**************************************************************************
+                      00012 
+  00000000            00013 W                            EQU     H'0000'
+  00000001            00014 F                            EQU     H'0001'
+                      00015 
+                      00016 ;----- Register Files------------------------------------------------------
+                      00017 
+  00000000            00018 INDF                         EQU     H'0000'
+  00000001            00019 TMR0                         EQU     H'0001'
+  00000002            00020 PCL                          EQU     H'0002'
+  00000003            00021 STATUS                       EQU     H'0003'
+  00000004            00022 FSR                          EQU     H'0004'
+  00000005            00023 PORTA                        EQU     H'0005'
+  00000006            00024 PORTB                        EQU     H'0006'
+                      00025 
+  0000000B            00026 INTCON                       EQU     H'000B'
+  00000081            00027 OPTION_REG                   EQU     H'0081'
+  00000085            00028 TRISA                        EQU     H'0085'
+  00000086            00029 TRISB                        EQU     H'0086'
+  0000001F            00030 CMCON                        EQU     H'001F'
+                      00031 
+                      00032 ;----- STATUS Bits --------------------------------------------------------
+  00000007            00033 IRP                          EQU     H'0007'
+  00000006            00034 RP1                          EQU     H'0006'
+  00000005            00035 RP0                          EQU     H'0005'
+  00000004            00036 NOT_TO                       EQU     H'0004'
+  00000003            00037 NOT_PD                       EQU     H'0003'
+  00000002            00038 Z                            EQU     H'0002'
+  00000001            00039 DC                           EQU     H'0001'
+  00000000            00040 C                            EQU     H'0000'
+                      00041 
+                      00042 ;==========================================================================
+                      00043 ;
+                      00044 ;       RAM Definition
+                      00045 ;
+                      00046 ;==========================================================================
+                      00047 
+  000001FF            00048     __MAXRAM H'01FF'
+                      00049     __BADRAM H'07'-H'09', H'0D', H'13'-H'14', H'1B'-H'1E'
+                      00050     __BADRAM H'87'-H'89', H'8D', H'8F'-H'91', H'93'-H'97', H'9E'
+                      00051     __BADRAM H'105', H'107'-H'109', H'10C'-H'11F', H'150'-H'16F'
+                      00052     __BADRAM H'185', H'187'-H'189', H'18C'-H'1EF'
+                      00053 
+gpasm-1.4.0 #1107 (May  9 2015) /home/sgp/K80   5-11-2019  13:03:06         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00054 ;==========================================================================
+                      00055 ;
+                      00056 ;       Configuration Bits
+                      00057 ;
+                      00058 ;==========================================================================
+                      00059 
+  00003FFF            00060 _BODEN_ON                    EQU     H'3FFF'
+  00003FBF            00061 _BODEN_OFF                   EQU     H'3FBF'
+  000003FF            00062 _CP_ALL                      EQU     H'03FF'
+  000017FF            00063 _CP_75                       EQU     H'17FF'
+  00002BFF            00064 _CP_50                       EQU     H'2BFF'
+  00003FFF            00065 _CP_OFF                      EQU     H'3FFF'
+  00003EFF            00066 _DATA_CP_ON                  EQU     H'3EFF'
+  00003FFF            00067 _DATA_CP_OFF                 EQU     H'3FFF'
+  00003FFF            00068 _PWRTE_OFF                   EQU     H'3FFF'
+  00003FF7            00069 _PWRTE_ON                    EQU     H'3FF7'
+  00003FFF            00070 _WDT_ON                      EQU     H'3FFF'
+  00003FFB            00071 _WDT_OFF                     EQU     H'3FFB'
+  00003FFF            00072 _LVP_ON                      EQU     H'3FFF'
+  00003F7F            00073 _LVP_OFF                     EQU     H'3F7F'
+  00003FFF            00074 _MCLRE_ON                    EQU     H'3FFF'
+  00003FDF            00075 _MCLRE_OFF                   EQU     H'3FDF'
+  00003FFF            00076 _ER_OSC_CLKOUT               EQU     H'3FFF'
+  00003FFE            00077 _ER_OSC_NOCLKOUT             EQU     H'3FFE'
+  00003FFD            00078 _INTRC_OSC_CLKOUT            EQU     H'3FFD'
+  00003FFC            00079 _INTRC_OSC_NOCLKOUT          EQU     H'3FFC'
+  00003FEF            00080 _EXTCLK_OSC                  EQU     H'3FEF'
+  00003FEC            00081 _LP_OSC                      EQU     H'3FEC'
+  00003FED            00082 _XT_OSC                      EQU     H'3FED'
+  00003FEE            00083 _HS_OSC                      EQU     H'3FEE'
+                      00084 
+2007   3F61           00085         __CONFIG        _BODEN_ON & _CP_OFF & _DATA_CP_OFF & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _MCLRE_ON
+                             & _XT_OSC
+                      00086 
+                      00087 ;==========================================================================
+                      00088 ;       Variable Definition
+                      00089 ;==========================================================================
+  00000020            00090 TIMER1          EQU     H'20'           ;Used in delay routine
+  00000021            00091 TIMER2          EQU     H'21'           ; "     "       "       
+  00000022            00092 PATERN          EQU     H'22'           ;Pattern data for effect's
+                      00093 
+0000                  00094                 ORG     0               ;Reset vector address
+0000   280A           00095                 GOTO    RESET           ;goto RESET routine when boot.
+                      00096 
+                      00097 
+                      00098 ;               *********************************************
+                      00099 ;               *  Example of a delay routine               *
+                      00100 ;               *********************************************
+                      00101 
+0001   3040           00102 DELAY_ROUTINE   MOVLW   D'064'         ;54 Generate approx 10mS delay at 4Mhz CLK
+0002   00A1           00103                 MOVWF   TIMER2
+0003   3040           00104 DEL_LOOP1       MOVLW   D'064'         ;60      
+0004   00A0           00105                 MOVWF   TIMER1
+gpasm-1.4.0 #1107 (May  9 2015) /home/sgp/K80   5-11-2019  13:03:06         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0005   0BA0           00106 DEL_LOOP2       DECFSZ  TIMER1,F
+0006   2805           00107                 GOTO    DEL_LOOP2
+0007   0BA1           00108                 DECFSZ  TIMER2,F
+0008   2803           00109                 GOTO    DEL_LOOP1
+0009   3400           00110                 RETLW   0
+                      00111 
+                      00112 
+                      00113 
+                      00114 ;              **********************************
+                      00115 ;              **  RESET :  main boot routine  **
+                      00116 ;              **********************************
+                      00117 
+000A   3007           00118 RESET           MOVLW   B'00000111'     ;Disable Comparator module's
+000B   009F           00119                 MOVWF   CMCON
+                      00120                 ;
+000C   1683           00121                 BSF     STATUS,RP0      ;Switch to register bank 1
+                      00122                                         ;Disable pull-ups
+                      00123                                         ;INT on rising edge
+                      00124                                         ;TMR0 to CLKOUT
+                      00125                                         ;TMR0 Incr low2high trans.
+                      00126                                         ;Prescaler assign to Timer0
+                      00127                                         ;Prescaler rate is 1:256
+000D   30D7           00128                 MOVLW   B'11010111'     ;Set PIC options (See datasheet).
+000E   0081           00129                 MOVWF   OPTION_REG      ;Write the OPTION register.
+                      00130                 ;
+000F   018B           00131                 CLRF    INTCON          ;Disable interrupts
+0010   30C0           00132                 MOVLW   B'11000000'
+0011   0086           00133                 MOVWF   TRISB           ;RB7 & RB6 are inputs.
+                      00134                                         ;RB5...RB0 are outputs.
+0012   30FF           00135                 MOVLW   B'11111111'     ;all RA ports are inputs
+0013   0085           00136                 MOVWF   TRISA
+0014   1283           00137                 BCF     STATUS,RP0      ;Switch Back to reg. Bank 0
+0015   0186           00138                 CLRF    PORTB           
+                      00139                 ;
+                      00140 
+0016   3001           00141 EFFECT_1        MOVLW   B'00000001'     ;Activate LD1 (RB0)
+0017   0086           00142                 MOVWF   PORTB
+0018   2001           00143                 CALL    DELAY_ROUTINE
+0019   3000           00144                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+001A   0086           00145                 MOVWF   PORTB
+001B   2001           00146                 CALL    DELAY_ROUTINE
+001C   3002           00147                 MOVLW   B'00000010'     ;Activate LD2 (RB1)
+001D   0086           00148                 MOVWF   PORTB
+001E   2001           00149                 CALL    DELAY_ROUTINE
+001F   3000           00150                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+0020   0086           00151                 MOVWF   PORTB
+0021   2001           00152                 CALL    DELAY_ROUTINE
+0022   3004           00153                 MOVLW   B'00000100'     ;Activate LD3 (RB2)
+0023   0086           00154                 MOVWF   PORTB
+0024   2001           00155                 CALL    DELAY_ROUTINE
+0025   3000           00156                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+0026   0086           00157                 MOVWF   PORTB
+0027   2001           00158                 CALL    DELAY_ROUTINE
+gpasm-1.4.0 #1107 (May  9 2015) /home/sgp/K80   5-11-2019  13:03:06         PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0028   3008           00159                 MOVLW   B'00001000'     ;Activate LD4 (RB3)
+0029   0086           00160                 MOVWF   PORTB
+002A   2001           00161                 CALL    DELAY_ROUTINE
+002B   3000           00162                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+002C   0086           00163                 MOVWF   PORTB
+002D   2001           00164                 CALL    DELAY_ROUTINE
+002E   3010           00165                 MOVLW   B'00010000'     ;Activate LD5 (RB4)
+002F   0086           00166                 MOVWF   PORTB
+0030   2001           00167                 CALL    DELAY_ROUTINE
+0031   3000           00168                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+0032   0086           00169                 MOVWF   PORTB
+0033   2001           00170                 CALL    DELAY_ROUTINE
+0034   3020           00171                 MOVLW   B'00100000'     ;Activate LD6 (RB5)
+0035   0086           00172                 MOVWF   PORTB
+0036   2001           00173                 CALL    DELAY_ROUTINE
+0037   3000           00174                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+0038   0086           00175                 MOVWF   PORTB
+0039   2001           00176                 CALL    DELAY_ROUTINE
+003A   3010           00177                 MOVLW   B'00010000'     ;Activate LD6 (RB5)
+003B   0086           00178                 MOVWF   PORTB
+003C   2001           00179                 CALL    DELAY_ROUTINE
+003D   3000           00180                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+003E   0086           00181                 MOVWF   PORTB
+003F   2001           00182                 CALL    DELAY_ROUTINE
+0040   3008           00183                 MOVLW   B'00001000'     ;Activate LD6 (RB5)
+0041   0086           00184                 MOVWF   PORTB
+0042   2001           00185                 CALL    DELAY_ROUTINE
+0043   3000           00186                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+0044   0086           00187                 MOVWF   PORTB
+0045   2001           00188                 CALL    DELAY_ROUTINE
+0046   3004           00189                 MOVLW   B'00000100'     ;Activate LD6 (RB5)
+0047   0086           00190                 MOVWF   PORTB
+0048   2001           00191                 CALL    DELAY_ROUTINE
+0049   3000           00192                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+004A   0086           00193                 MOVWF   PORTB
+004B   2001           00194                 CALL    DELAY_ROUTINE
+004C   3002           00195                 MOVLW   B'00000010'     ;Activate LD6 (RB5)
+004D   0086           00196                 MOVWF   PORTB
+004E   2001           00197                 CALL    DELAY_ROUTINE
+004F   3000           00198                 MOVLW   B'00000000'     ;Activate LD2 (RB1)
+0050   0086           00199                 MOVWF   PORTB
+0051   2001           00200                 CALL    DELAY_ROUTINE
+0052   3001           00201                 MOVLW   B'00000001'     ;Activate LD6 (RB5)
+0053   0086           00202                 MOVWF   PORTB
+0054   2001           00203                 CALL    DELAY_ROUTINE
+0055   2816           00204                 GOTO    EFFECT_1
+                      00205                 END
+gpasm-1.4.0 #1107 (May  9 2015) /home/sgp/K80   5-11-2019  13:03:06         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+C                                 00000000
+CMCON                             0000001F
+DC                                00000001
+DELAY_ROUTINE                     00000001
+DEL_LOOP1                         00000003
+DEL_LOOP2                         00000005
+EFFECT_1                          00000016
+F                                 00000001
+FSR                               00000004
+INDF                              00000000
+INTCON                            0000000B
+IRP                               00000007
+NOT_PD                            00000003
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PATERN                            00000022
+PCL                               00000002
+PORTA                             00000005
+PORTB                             00000006
+RESET                             0000000A
+RP0                               00000005
+RP1                               00000006
+STATUS                            00000003
+TIMER1                            00000020
+TIMER2                            00000021
+TMR0                              00000001
+TRISA                             00000085
+TRISB                             00000086
+W                                 00000000
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_CP_50                            00002BFF
+_CP_75                            000017FF
+_CP_ALL                           000003FF
+_CP_OFF                           00003FFF
+_DATA_CP_OFF                      00003FFF
+_DATA_CP_ON                       00003EFF
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_HS_OSC                           00003FEE
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+gpasm-1.4.0 #1107 (May  9 2015) /home/sgp/K80   5-11-2019  13:03:06         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_XT_OSC                           00003FED
+__16F627                          00000001
+__CODE_END                        000003FF
+__CODE_START                      00000000
+__COMMON_RAM_END                  0000007F
+__COMMON_RAM_START                00000070
+__EEPROM_END                      0000217F
+__EEPROM_START                    00002100
+__VECTOR_INT                      00000004
+__VECTOR_RESET                    00000000
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXX---------- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    86
+Program Memory Words Free:   938
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     3 suppressed
+
+

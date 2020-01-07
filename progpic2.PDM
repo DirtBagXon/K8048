@@ -1,0 +1,146 @@
+[Root]
+Most Recent Package=K8048
+
+
+[Package|K8048|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Files\K8048_PIC_TUTOR\Software\CD\Package
+
+[Package|K8048|Configure DAO ISAMs]
+Applicable=No
+
+[Package|K8048|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|K8048|Files Found]
+
+[Package|K8048|Files Released]
+
+[Package|K8048|Missing Dependency Information]
+
+[Package|K8048|Out-of-Date Dependency Information]
+
+[Package|K8048|Files Added]
+c:\files\k8048_pic_tutor\software\cd\mpasmwin.exe=
+c:\files\k8048_pic_tutor\software\cd\mpasm.hlp=
+c:\files\k8048_pic_tutor\software\cd\mplab.ini=
+c:\files\k8048_pic_tutor\software\cd\progpic2.pdm=
+c:\files\k8048_pic_tutor\software\cd\progpic2-hlp.htm=
+c:\files\k8048_pic_tutor\software\cd\propic2.cfg=
+c:\files\k8048_pic_tutor\software\cd\propic2.ini=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC12F675.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627A.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F628.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630_PGM.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F84.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876.pdf=
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876A.pdf=
+
+[Package|K8048|Files Removed]
+c:\winnt\system32\msvbvm60.dll=
+c:\winnt\system32\oleaut32.dll=
+c:\winnt\system32\olepro32.dll=
+c:\winnt\system32\asycfilt.dll=
+c:\winnt\system32\stdole2.tlb=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\comcat.dll=
+
+[Package|K8048|Files In Project]
+C:\Files\K8048_PIC_TUTOR\Software\CD\Progpic2.exe=Yes
+C:\WINNT\system32\msvbvm60.dll=No
+C:\WINNT\system32\OLEAUT32.DLL=No
+C:\WINNT\system32\OLEPRO32.DLL=No
+C:\WINNT\system32\ASYCFILT.DLL=No
+C:\WINNT\system32\STDOLE2.TLB=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINNT\system32\VB6STKIT.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPASMWIN.EXE=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPASM.HLP=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPLAB.INI=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\progpic2.PDM=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\progpic2-hlp.htm=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\propic2.cfg=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\propic2.ini=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC12F675.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627A.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F628.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630_PGM.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F84.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876.pdf=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876A.pdf=Yes
+
+[Package|K8048|Configure Registry Files]
+Applicable=No
+
+[Package|K8048|Configure Remote Servers]
+Applicable=No
+
+[Package|K8048|Install Locations]
+C:\Files\K8048_PIC_TUTOR\Software\CD\Progpic2.exe=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPASMWIN.EXE=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPASM.HLP=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPLAB.INI=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\progpic2-hlp.htm=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\propic2.cfg=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\propic2.ini=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\progpic2.PDM=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC12F675.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627A.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F628.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630_PGM.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F84.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876.pdf=$(AppPath)
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876A.pdf=$(AppPath)
+
+[Package|K8048|Configure Shared Files]
+Applicable=Yes
+C:\Files\K8048_PIC_TUTOR\Software\CD\Progpic2.exe=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPASMWIN.EXE=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPASM.HLP=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\MPLAB.INI=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\progpic2-hlp.htm=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\propic2.cfg=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\propic2.ini=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\progpic2.PDM=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC12F675.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F627A.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F628.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F630_PGM.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F84.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876.pdf=No
+C:\Files\K8048_PIC_TUTOR\Software\CD\Datasheets\PIC16F876A.pdf=No
+
+[Package|K8048|Distribution]
+Type=single
+Size=
+Title=K8048 PIC Programmer  Rev 0.99.03 ß
+
+[Package|K8048|Package]
+PackageFolder=C:\Files\K8048_PIC_TUTOR\Software\CD\Package
+ProjectFolder=C:\Files\K8048_PIC_TUTOR\Software\CD
+ServerSideCab=
+File1=C:\Files\K8048_PIC_TUTOR\Software\CD\Package\setup.exe
+File2=C:\Files\K8048_PIC_TUTOR\Software\CD\Package\Setup.Lst
+File3=C:\Files\K8048_PIC_TUTOR\Software\CD\Package\progpic2.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|K8048|IconGroups]
+Group0=K8048
+PrivateGroup0=False
+Parent0=$(Programs)
